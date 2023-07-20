@@ -1,6 +1,5 @@
 import json
 import requests
-API_TOKEN="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"
 
 import requests
 
