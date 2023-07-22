@@ -25,7 +25,7 @@ def modify_source_urls(source_urls):
 
 prompt=st.text_input("Prompt",placeholder="Enter Something here")
 # st.text_area(pr)
-if prompt:
+if prompt or st.session_state["chat_history"]:
     with st.spinner('Loading for you'):
         generated_response=run_llm(query=prompt,chat_history= st.session_state["chat_history"])
         sources=set(
@@ -36,18 +36,18 @@ if prompt:
         st.session_state["chat_answer_history"].append(formatted_answer)
         st.session_state["chat_history"].append((prompt,generated_response['answer']))
 
-if st.session_state["user_prompt_history"]:
-    for user_query,generated_response_each in zip(
-        st.session_state["user_prompt_history"],
-        st.session_state["chat_answer_history"]
-    ):
-        message = st.chat_message("user")
-        # message(user_query,is_user=True)
-        message.write(user_query)
-        message = st.chat_message("assistant")
-        message.write(generated_response_each)
-        # message(generated_response_each)
-
+    if st.session_state["user_prompt_history"]:
+        for user_query,generated_response_each in reversed(list(zip(
+            st.session_state["user_prompt_history"],
+            st.session_state["chat_answer_history"]
+        ))):
+            message = st.chat_message("user")
+            # message(user_query,is_user=True)
+            message.write(user_query)
+            message = st.chat_message("assistant")
+            message.write(generated_response_each)
+            # message(generated_response_each)
+prompt=""
 
 
 
