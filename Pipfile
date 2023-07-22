@@ -4,13 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-langchain = "*"
-pinecone-client = "*"
-huggingface-hub = "*"
-beautifulsoup4 = "*"
-streamlit = "*"
-watchdog = "*"
-streamlit-chat = "*"
 
 [dev-packages]
 
